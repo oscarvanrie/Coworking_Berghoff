@@ -13,8 +13,106 @@
 
 html {
     scroll-behavior: smooth;
+    line-height: 1.6;
 }
 
 body{
     font-family: 'dinproregular', sans-serif;
+    margin: 0;
+    overflow: hidden;
 }
+#world {
+    position: absolute;
+    width:75%;
+    height: 100%;
+    right:0;
+    overflow: hidden;
+  }
+  .stat p{
+    font-size: 2em;
+  }
+  .stat p:first-child{
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .stat p:last-child{
+    margin-top: 0;
+  }
+  .panel {
+      position:absolute;
+      top:0;
+      left:0;
+      padding: 2em 3em;
+      width: 25%;
+  }
+  
+  .game-title {
+      margin-top: 0;
+      text-align:center;
+      font-weight: bold;
+      font-size:2.5em;
+  }
+  
+  .stat {
+      margin-top: 2em;
+      text-align:center;
+      border: 0.1rem solid #333;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  }
+  
+  .controls{
+    border: 0.1rem solid #333;
+    border-radius: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    transition: transform .2s ease-in-out;
+  }
+  .controls:hover{
+    transform: scale(1.02);
+  }
+  .controls h2{
+    font-size: 1.5em;
+    margin-left: 1.5rem;
+  }
+  .variable-content{
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .controls h3{
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  #game-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #abcdef;
+    position: relative;
+    overflow: hidden;
+
+  }
+  #player {
+    width: 50px;
+    height: 50px;
+    background-color: #ff0000;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 25px); /* Plaatst de speler in het midden */
+    transition: left 0.1s linear;
+  }
+  .coin {
+    width: 20px;
+    height: 20px;
+    background-color: #ffd700;
+    position: absolute;
+    border-radius: 50%;
+  }
+
