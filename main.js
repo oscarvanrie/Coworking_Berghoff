@@ -16,17 +16,20 @@
             function updateCounter() {
                 if (yPos < screenHeight) {
                     this.yPos = this.yPos - 10;
+                    
                 } else {
                     clearInterval(intervalId);
                 }
             }
         
             // Start the interval timer
-            const intervalId = setInterval(updateCounter, 1000); 
+            const intervalId = setInterval(updateCounter, this.snelheid); 
 
         }
 
 
 
     }
+
+    
 })
