@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Functie om de score bij te werken
   function updateScore() {
+    if (!gameRunning) return;
     score++;
     scoreDisplay.textContent = score;
     // Controleren of de score een veelvoud van 10 is
