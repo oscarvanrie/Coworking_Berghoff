@@ -28,18 +28,7 @@ body{
     right:0;
     overflow: hidden;
   }
-  .stat p{
-    font-size: 2em;
-  }
-  .stat p:first-child{
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-  .stat p:last-child{
-    margin-top: 0;
-  }
+  
   .panel {
       position:absolute;
       top:0;
@@ -54,15 +43,33 @@ body{
       font-weight: bold;
       font-size:2.5em;
   }
-  
+  .stat p{
+    font-size: 1.5em;
+  }
+  .stat p{
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .stat p:first-child{
+    padding-top: 0.5rem;
+  }
   .stat {
-      margin-top: 2em;
       text-align:center;
       border: 0.1rem solid #333;
       border-radius: 1rem;
       margin-bottom: 2rem;
       box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
   }
+  #score, #highscore {
+    font-size: 1.5rem;
+    margin-bottom: 0;    
+  }
+  .stat p{
+    margin-top: 0;
+  }
+
   
   .controls{
     border: 0.1rem solid #333;
@@ -108,11 +115,30 @@ body{
     left: calc(50% - 25px); /* Plaatst de speler in het midden */
     transition: left 0.1s linear;
   }
-  .coin {
+  .coin, .obstacle {
     width: 20px;
     height: 20px;
-    background-color: #ffd700;
     position: absolute;
     border-radius: 50%;
   }
+  .coin {
+    background-color: #ffd700;
+  }
+  .obstacle {
+    background-color: #808080;
+  }
+  #game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    color: red;
+    display: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+
 
