@@ -1,8 +1,73 @@
 "use strict";
+"use strict";
+
 (function() {
-  const gameContainer = document.getElementById('game-container');
+    const gameContainer = document.getElementById('game-container');
     const player = document.getElementById('player');
     let playerPosition = 0; // 0 voor het midden, -1 voor links, 1 voor rechts
+
+    class Obstacle {
+        constructor(type, speed) {
+            this.type = type; 
+            this.speed = speed; 
+            this.element = document.createElement('img');
+            this.element.classList.add('obstacle');
+            this.element.classList.add(type); 
+            this.obstacleBad = ["./images/obstacel_1.png", "./images/obstacel_2.png", "./images/obstacel_3.png"];
+            this.obstacleGood = ["./images/berghoofproduct_1.png", "./images/berghoofproduct_2.png", "./images/berghoofproduct_3.png"];
+
+            if (this.type === "good") {
+                const random = Math.floor(Math.random() * this.obstacleGood.length);
+                console.log(this.obstacleGood[random]);
+                this.element.src = this.obstacleGood[random];
+            } else {
+                const random = Math.floor(Math.random() * this.obstacleBad.length);
+                this.element.src = this.obstacleBad[random];
+            }
+            document.body.appendChild(this.element);
+            this.setObstacle();
+        }
+
+        setObstacle() {
+            const xPos = Math.floor(Math.random() * 3) - 1;
+            this.element.style.left = calcPlayerPosition(xPos) + 'px';
+            this.element.style.top = '-100px'; 
+            this.move();
+        }
+
+        checkCollision() {
+            const playerRect = player.getBoundingClientRect();
+            const obstacleRect = this.element.getBoundingClientRect();
+            if (
+                playerRect.top < obstacleRect.bottom &&
+                playerRect.bottom > obstacleRect.top &&
+                playerRect.left < obstacleRect.right &&
+                playerRect.right > obstacleRect.left
+            ) {
+                console.log("Collision!");
+                // Do something when collision occurs, like game over
+            }
+        }
+
+        move() {
+            const obstacle = this;
+            this.interval = setInterval(function() {
+                const currentTop = parseInt(obstacle.element.style.top);
+                if (currentTop >= window.innerHeight) {
+                    console.log("buiten");
+                    delete this;
+                    clearInterval(obstacle.interval);
+                } else {
+                    obstacle.element.style.top = (currentTop + obstacle.speed) + 'px';
+                    obstacle.checkCollision(); // Call the method using 'this'
+                }
+            }, 1000 / 60); 
+        }
+    }
+
+    const obstacle1 = new Obstacle("good", 1.2);
+    const obstacle2 = new Obstacle("good", 1.3);
+    const obstacle3 = new Obstacle("good", 3);
 
     // Functie om de speler te verplaatsen
     function movePlayer(direction) {
@@ -11,14 +76,14 @@
         } else if (direction === 'right' && playerPosition !== 1) {
             playerPosition += 1;
         }
-        player.style.left = calcPlayerPosition() + 'px';
+        player.style.left = calcPlayerPosition(playerPosition) + 'px';
     }
 
     // Functie om de positie van de speler te berekenen op basis van de rijstroken
-    function calcPlayerPosition() {
-        if (playerPosition === -1) {
+    function calcPlayerPosition(playerPos) {
+        if (playerPos === -1) {
             return gameContainer.offsetWidth / 4 - player.offsetWidth / 2; // Plaatst de speler op de linkse rijstrook
-        } else if (playerPosition === 1) {
+        } else if (playerPos === 1) {
             return gameContainer.offsetWidth * 3 / 4 - player.offsetWidth / 2; // Plaatst de speler op de rechtse rijstrook
         } else {
             return gameContainer.offsetWidth / 2 - player.offsetWidth / 2; // Plaatst de speler in het midden
@@ -35,6 +100,7 @@
     });
 })();
 
+/*
 document.addEventListener("DOMContentLoaded", function() {
   const gameContainer = document.getElementById('game-container');
   const player = document.getElementById('player');
@@ -133,4 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Start het maken van munten en obstakels
   createObjects();
+  
 });
+*/
+

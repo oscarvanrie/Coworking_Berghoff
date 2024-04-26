@@ -119,13 +119,9 @@ body{
     width: 20px;
     height: 20px;
     position: absolute;
-    border-radius: 50%;
   }
   .coin {
     background-color: #ffd700;
-  }
-  .obstacle {
-    background-color: #808080;
   }
   #game-over {
     position: absolute;
