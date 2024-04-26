@@ -20,7 +20,41 @@ body{
     font-family: 'dinproregular', sans-serif;
     margin: 0;
     overflow: hidden;
+    background-color: #fafafa;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  background-color: #c4cbbc;
+  padding-bottom: 1rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: row;
+}
+.stat #score, #highscore{
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+.logo img {
+  max-width: 12rem;
+}
+
+
+.stat p {
+  margin: 0;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+
+
+
 #world {
     position: absolute;
     width:75%;
@@ -31,7 +65,7 @@ body{
   
   .panel {
       position:absolute;
-      top:0;
+      top:10rem;
       left:0;
       padding: 2em 3em;
       width: 25%;
@@ -43,31 +77,9 @@ body{
       font-weight: bold;
       font-size:2.5em;
   }
-  .stat p{
-    font-size: 1.5em;
-  }
-  .stat p{
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-  .stat p:first-child{
-    padding-top: 0.5rem;
-  }
-  .stat {
-      text-align:center;
-      border: 0.1rem solid #333;
-      border-radius: 1rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-  }
   #score, #highscore {
     font-size: 1.5rem;
     margin-bottom: 0;    
-  }
-  .stat p{
-    margin-top: 0;
   }
 
   
@@ -100,8 +112,7 @@ body{
 
   #game-container {
     width: 100vw;
-    height: 100vh;
-    background-color: #abcdef;
+    height: 80vh;
     position: relative;
     overflow: hidden;
 

@@ -9,36 +9,41 @@
 
 </head>
 <body>
-  <div id="game-container">
-    <div id="player"></div>
-    <div id="game-over">Game Over</div>
-  </div>
-    <div class="panel">
-        <div class="game-title">
-            <p>BergHoff Run</p>
-        </div>
-        <div class="stat">
-            <p>Score</p>
-            <div id="score">0</div>
-            <p>HighScore</p>
-            <div id="highscore">0</div>
-        </div>
-        <div class="controls">
-          <h2>Controls:</h2>
-          <ul>
-              <li>
-                <p>Up: Jump</p>
-              </li>
-              <li>
-                <p>Left: Left lane switch</p>
-              </li>
-              <li>
-                <p>Right: Right lane switch</p>
-              </tr>
-          </ul>
-          <h3>Press any button to begin</h3>
-        </div>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="images/logo.avif" alt="BergHoff Run">
+      </div>
+      <div class="stat">
+        <p>Score:</p>
+        <div id="score">0</div>
+        <p>HighScore:</p>
+        <div id="highscore">0</div>
     </div>
-    
+    </div>
+  </header>
+  <main>
+    <div id="game-container">
+      <div id="player"></div>
+      <div id="game-over">Game Over</div>
+    </div>
+      <div class="panel">
+          <div class="controls">
+            <h2>Controls:</h2>
+            <ul>
+                <li>
+                  <p>Up: Jump</p>
+                </li>
+                <li>
+                  <p>Left: Left lane switch</p>
+                </li>
+                <li>
+                  <p>Right: Right lane switch</p>
+                </tr>
+            </ul>
+            <h3>Press any button to begin</h3>
+          </div>
+      </div>
+  </main>    
 </body>
 </html>
