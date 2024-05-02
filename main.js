@@ -5,12 +5,16 @@
     const gameContainer = document.getElementById('game-container');
     const player = document.getElementById('player');
     let playerPosition = 0; // 0 voor het midden, -1 voor links, 1 voor rechts
+    let score = 0;
 
     class Obstacle {
         constructor(type, speed) {
             this.type = type; 
             this.speed = speed; 
             this.element = document.createElement('img');
+            this.element.style.width = "5rem";
+            this.element.style.height = "5rem";
+
             this.element.classList.add('obstacle');
             this.element.classList.add(type); 
             this.obstacleBad = ["./images/obstacel_1.png", "./images/obstacel_2.png", "./images/obstacel_3.png"];
@@ -44,8 +48,21 @@
                 playerRect.left < obstacleRect.right &&
                 playerRect.right > obstacleRect.left
             ) {
-                console.log("Collision!");
-                // Do something when collision occurs, like game over
+              if (this.type == "good") {
+                console.log("Collision! good ");
+                this.element.remove();    
+                score++;   
+                updateScore();
+
+                
+                
+              } else {
+                console.log("Collision! bad");
+                this.element.remove(); 
+                score = 0;
+                updateScore();
+                            
+              }
             }
         }
 
@@ -66,8 +83,12 @@
     }
 
     const obstacle1 = new Obstacle("good", 1.2);
-    const obstacle2 = new Obstacle("good", 1.3);
-    const obstacle3 = new Obstacle("good", 3);
+    const obstacle2 = new Obstacle("good", 1);
+    const obstacle3 = new Obstacle("good", 1.4);
+
+    const obstacle4 = new Obstacle("bad", 1.6);
+    const obstacle5 = new Obstacle("bad", 1.8);
+    const obstacle6 = new Obstacle("bad", 2);
 
     // Functie om de speler te verplaatsen
     function movePlayer(direction) {
@@ -77,6 +98,12 @@
             playerPosition += 1;
         }
         player.style.left = calcPlayerPosition(playerPosition) + 'px';
+    }
+
+    function updateScore() {
+      const scoreDisplay = document.querySelector('#score');
+      scoreDisplay.innerHTML = score;
+      
     }
 
     // Functie om de positie van de speler te berekenen op basis van de rijstroken
