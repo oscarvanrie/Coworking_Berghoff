@@ -1,152 +1,152 @@
 *, *::before, *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'dinproregular';
-    src: url('dinpro-regular_13937-webfont.woff2') format('woff2'),
-         url('dinpro-regular_13937-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'dinproregular';
+  src: url('dinpro-regular_13937-webfont.woff2') format('woff2'),
+       url('dinpro-regular_13937-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 
 }
 
 html {
-    scroll-behavior: smooth;
-    line-height: 1.6;
+  scroll-behavior: smooth;
+  line-height: 1.6;
 }
 
 body{
-    font-family: 'dinproregular', sans-serif;
-    margin: 0;
-    overflow: hidden;
-    background-color: #fafafa;
+  font-family: 'dinproregular', sans-serif;
+  margin: 0;
+  overflow: hidden;
+  background-color: #fafafa;
 }
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  background-color: #c4cbbc;
-  padding-bottom: 1rem;
+display: flex;
+flex-direction: column;
+align-items: center; /* Center items horizontally */
+background-color: #c4cbbc;
+padding-bottom: 1rem;
 }
 
 .stat {
-  display: flex;
-  flex-direction: row;
+display: flex;
+flex-direction: row;
 }
 .stat #score, #highscore{
-  margin-right: 1rem;
-  margin-left: 0.5rem;
-  font-weight: bold;
+margin-right: 1rem;
+margin-left: 0.5rem;
+font-weight: bold;
 }
 .logo img {
-  max-width: 12rem;
+max-width: 12rem;
 }
 
 
 .stat p {
-  margin: 0;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
+margin: 0;
+font-weight: bold;
+display: flex;
+align-items: center;
+font-size: 1.2rem;
 }
 
 
 
 
 #world {
-    position: absolute;
-    width:75%;
-    height: 100%;
-    right:0;
-    overflow: hidden;
-  }
-  
-  .panel {
-      position:absolute;
-      top:10rem;
-      left:0;
-      padding: 2em 3em;
-      width: 25%;
-  }
-  
-  .game-title {
-      margin-top: 0;
-      text-align:center;
-      font-weight: bold;
-      font-size:2.5em;
-  }
-  #score, #highscore {
-    font-size: 1.5rem;
-    margin-bottom: 0;    
-  }
+  position: absolute;
+  width:75%;
+  height: 100%;
+  right:0;
+  overflow: hidden;
+}
 
-  
-  .controls{
-    border: 0.1rem solid #333;
-    border-radius: 1rem;
-    padding-bottom: 1rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-    transition: transform .2s ease-in-out;
-  }
-  .controls:hover{
-    transform: scale(1.02);
-  }
-  .controls h2{
-    font-size: 1.5em;
-    margin-left: 1.5rem;
-  }
-  .variable-content{
+.panel {
+    position:absolute;
+    top:10rem;
+    left:0;
+    padding: 2em 3em;
+    width: 25%;
+}
+
+.game-title {
+    margin-top: 0;
+    text-align:center;
     font-weight: bold;
-    text-decoration: underline;
-  }
-  .controls h3{
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 2rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: underline;
-  }
+    font-size:2.5em;
+}
+#score, #highscore {
+  font-size: 1.5rem;
+  margin-bottom: 0;    
+}
 
-  #game-container {
-    width: 100vw;
-    height: 80vh;
-    position: relative;
-    overflow: hidden;
 
-  }
-  #player {
-    width: 160px;
-    height: 160px;
-    background-image: url('images/opvangpan.png');
-    background-size: cover;
-    position: absolute;
-    bottom: 0;
-    left: calc(50% - 80px);
-    transition: left 0.1s linear;
-  }
-  .coin, .obstacle {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-  }
-  .coin {
-    background-color: #ffd700;
-  }
-  #game-over {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 36px;
-    color: red;
-    display: none;
-    font-weight: 800;
-    text-transform: uppercase;
-    text-decoration: underline;
-  }
+.controls{
+  border: 0.1rem solid #333;
+  border-radius: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  transition: transform .2s ease-in-out;
+}
+.controls:hover{
+  transform: scale(1.02);
+}
+.controls h2{
+  font-size: 1.5em;
+  margin-left: 1.5rem;
+}
+.variable-content{
+  font-weight: bold;
+  text-decoration: underline;
+}
+.controls h3{
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#game-container {
+  width: 100vw;
+  height: 80vh;
+  position: relative;
+  overflow: hidden;
+
+}
+#player {
+  width: 300px;
+  height: 250px;
+  background-image: url('images/opvangpan.png');
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 50px);
+  transition: left 0.1s linear;
+}
+.coin, .obstacle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+.coin {
+  background-color: #ffd700;
+}
+#game-over {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  color: red;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  text-decoration: underline;
+}
 
 
 
