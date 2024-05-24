@@ -147,11 +147,9 @@ function updateHighScore() {
   function startDroppingObstacles() {
       new Obstacle("good", 1.2);
       new Obstacle("good", 1);
-      new Obstacle("good", 1.4);
 
       new Obstacle("bad", 1.6);
       new Obstacle("bad", 1.8);
-      new Obstacle("bad", 2);
 
       const obstacleGenerationInterval = setInterval(() => {
           if (!stopDropping) {
