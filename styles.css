@@ -94,15 +94,20 @@ font-size: 1.2rem;
   transform: scale(1.02);
 }
 .controls h2{
-  font-size: 1.5em;
+  font-size: 2em;
   margin-left: 1.5rem;
 }
 .variable-content{
   font-weight: bold;
   text-decoration: underline;
 }
+.controls p{
+  font-size: 1em;
+  font-weight: bold;
+  margin-left: 1.5rem;
+}
 .controls h3{
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
   margin-top: 2rem;
   text-transform: uppercase;
@@ -118,8 +123,8 @@ font-size: 1.2rem;
 
 }
 #player {
-  width: 300px;
-  height: 250px;
+  width: 200px;
+  height: 175px;
   background-image: url('images/opvangpan.png');
   background-size: cover;
   position: absolute;
@@ -147,6 +152,51 @@ font-size: 1.2rem;
   letter-spacing: 0.5rem;
   text-decoration: underline;
 }
+#new-highscore {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 40%;
+  font-size: 2rem;
+  color: #88ff00;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+
+  animation: highlight 2s infinite; /* Add animation and slow down the zoom in and out effect */
+}
+
+@keyframes highlight {
+  0% {
+      color: #88ff00; /* Specified color */
+      transform: scale(1); /* Zoom in */
+  }
+  25% {
+      color: #f700ee; /* Light Purple */
+      transform: scale(1.1); /* Zoom out */
+  }
+  50% {
+      color: #fdd700; /* Yellow */
+      transform: scale(1); /* Zoom in */
+  }
+  75% {
+      color: #ff8c00; /* Orange */
+      transform: scale(1.1); /* Zoom out */
+  }
+  100% {
+      color: #0051e9; /* Specified color */
+      transform: scale(1); /* Zoom in */
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

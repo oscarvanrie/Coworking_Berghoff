@@ -4,6 +4,7 @@
   const gameContainer = document.getElementById('game-container');
   const player = document.getElementById('player');
   const gameOverDisplay = document.getElementById('game-over');
+  const newHighScore = document.getElementById('new-highscore');
   const scoreDisplay = document.getElementById('score');
   let playerPosition = 0;
   let score = 0;
@@ -29,9 +30,10 @@
   }
 
   class Obstacle {
-      constructor(type, speed) {
+      constructor(type, speed,score) {
           this.type = type;
           this.speed = speed;
+          this.score = score;
           this.element = document.createElement('img');
           this.element.style.width = "6rem";
           this.element.style.height = "6rem";
@@ -55,34 +57,40 @@
       }
 
       setObstacle() {
-          const xPos = Math.floor(Math.random() * 3) - 1;
+          const xPos = Math.floor(Math.random() * 3 ) - 1;
           this.element.style.left = calcPlayerPosition(xPos) + 'px';
           this.element.style.top = '-100px';
           this.move();
       }
 
+
       checkCollision() {
-          const playerRect = player.getBoundingClientRect();
-          const obstacleRect = this.element.getBoundingClientRect();
-          if (
-              playerRect.top < obstacleRect.bottom &&
-              playerRect.bottom > obstacleRect.top &&
-              playerRect.left < obstacleRect.right &&
-              playerRect.right > obstacleRect.left
-          ) {
-              if (this.type == "good") {
-                  console.log("Collision! good ");
-                  this.element.remove();
-                  score++;
-                  updateScore();
-              } else {
-                  console.log("Collision! bad");
-                  stopDropping = true;
-                  removeAllObstacles();
-                  showGameOver();
-              }
-          }
-      }
+        const playerRect = player.getBoundingClientRect();
+        const obstacleRect = this.element.getBoundingClientRect();
+        const hitboxWidth = playerRect.width * 0.5;
+        const hitboxHeight = playerRect.height * 0.5;
+        const hitboxLeft = playerRect.left + (playerRect.width - hitboxWidth) / 2;
+        const hitboxTop = playerRect.top + (playerRect.height - hitboxHeight) / 2;
+        if (
+            hitboxTop < obstacleRect.bottom &&
+            hitboxTop + hitboxHeight > obstacleRect.top &&
+            hitboxLeft < obstacleRect.right &&
+            hitboxLeft + hitboxWidth > obstacleRect.left
+        ) {
+            if (this.type == "good") {
+                console.log("Collision! good ");
+                this.element.remove();
+                score++;
+                updateScore();
+            } else {
+                console.log("Collision! bad");
+                stopDropping = true;
+                removeAllObstacles();
+                showGameOver();
+            }
+        }
+    }
+    
 
       move() {
         const obstacle = this;
@@ -91,7 +99,7 @@
             const currentTop = parseInt(obstacle.element.style.top);
             const distanceFromTop = currentTop + obstacle.element.offsetHeight;
     
-            const adjustedSpeed = initialSpeed + (distanceFromTop / 200);
+            const adjustedSpeed = initialSpeed + (obstacle.score / 5);
     
             if (currentTop >= window.innerHeight || stopDropping) {
                 obstacle.element.remove();
@@ -121,17 +129,20 @@
   function showGameOver() {
     gameOverDisplay.style.display = 'block';
     showControls();
-    updateHighScore(); // Update the high score
+    updateHighScore();
 }
 
-// Function to update the high score
+
 function updateHighScore() {
     const highScoreElement = document.getElementById('highscore');
     const currentHighScore = parseInt(highScoreElement.textContent);
     if (score > currentHighScore) {
         highScoreElement.textContent = score;
+        newHighScore.style.display = 'block';
+        startConfetti();
     }
 }
+
 
 
   function resetGame() {
@@ -142,24 +153,25 @@ function updateHighScore() {
       removeAllObstacles();
       playerPosition = 0;
       player.style.left = calcPlayerPosition(playerPosition) + 'px';
+      newHighScore.style.display = 'none';
   }
 
   function startDroppingObstacles() {
-      new Obstacle("good", 1.2);
-      new Obstacle("good", 1);
+    new Obstacle("good", 1.2,score);
+      new Obstacle("good", 1,score);
 
-      new Obstacle("bad", 1.6);
-      new Obstacle("bad", 1.8);
+      new Obstacle("bad", 1.6,score);
+      new Obstacle("bad", 1.8,score);
 
       const obstacleGenerationInterval = setInterval(() => {
           if (!stopDropping) {
-              new Obstacle("good", 1.2);
-              new Obstacle("bad", 1.6);
+              new Obstacle("good", 1.2,score);
+              new Obstacle("bad", 1.6,score);
           } else {
               clearInterval(obstacleGenerationInterval);
           }
       }, 2000);
-  }
+}
 
   function movePlayer(direction) {
       if (direction === 'left' && playerPosition !== -1) {
@@ -184,6 +196,30 @@ function updateHighScore() {
           return gameContainer.offsetWidth / 2 - player.offsetWidth / 2;
       }
   }
+  function startConfetti() {
+    const duration = 5 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+}
+
 
   // Event listener for player movements and game start
   document.addEventListener('keydown', function(event) {
