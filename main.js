@@ -10,6 +10,47 @@
   let score = 0;
   let stopDropping = true;
   let activeObstacles = [];
+  let droppingSpeed = 1250;
+  const savedHighScore = localStorage.getItem('highscore');
+  let highScore = 0;
+  let levensOver = 3;
+  let volHart = Array.from(document.querySelectorAll(".volHart"));
+  let leegHart = Array.from(document.querySelectorAll(".leegHart"));
+  
+  console.log(volHart);
+  console.log(leegHart);
+
+  
+  function updateHarten() {
+    if (levensOver === 0) {
+        stopDropping = true;
+        removeAllObstacles();
+        showGameOver();
+    }
+    // Verberg alle harten
+    leegHart.forEach((lhart) => {
+        lhart.style.display = "none";
+    });
+    volHart.forEach((vhart) => {
+        vhart.style.display = "none";
+    });
+
+
+
+    for (let i = 0; i < 3; i++) {
+        console.log(i)
+        if (i + 1 > levensOver) {
+            leegHart[i].style.display = "block";
+            volHart[i].style.display = "none";
+        } else {
+            leegHart[i].style.display = "none";
+            volHart[i].style.display = "block";
+        }
+    }
+}
+
+  updateHarten();
+
 
   function initGame() {
     stopDropping = false;
@@ -42,6 +83,7 @@
           this.element.classList.add(type);
           this.obstacleBad = ["./images/obstacel_1.png", "./images/obstacel_2.png", "./images/obstacel_3.png"];
           this.obstacleGood = ["./images/berghoofproduct_1.png", "./images/berghoofproduct_2.png", "./images/berghoofproduct_3.png"];
+          this.dead = false;
 
           if (this.type === "good") {
               const random = Math.floor(Math.random() * this.obstacleGood.length);
@@ -58,7 +100,7 @@
 
       setObstacle() {
           const xPos = Math.floor(Math.random() * 3 ) - 1;
-          this.element.style.left = calcPlayerPosition(xPos) + 'px';
+          this.element.style.left = calcPlayerPosition(xPos) + 50 + 'px';
           this.element.style.top = '-100px';
           this.move();
       }
@@ -81,6 +123,8 @@
                 console.log("Collision! good ");
                 this.element.remove();
                 score++;
+                this.dead = true;
+                //droppingSpeed = droppingSpeed - 10;
                 updateScore();
             } else {
                 console.log("Collision! bad");
@@ -92,29 +136,32 @@
     }
     
 
-      move() {
+    move() {
         const obstacle = this;
         const initialSpeed = this.speed;
-        this.interval = setInterval(function() {
-            const currentTop = parseInt(obstacle.element.style.top);
-            const distanceFromTop = currentTop + obstacle.element.offsetHeight;
+        this.interval = setInterval(() => { // Change to arrow function
+            if (this.dead === false) { // Use 'this' to refer to the Obstacle instance
+                const currentTop = parseInt(obstacle.element.style.top);
     
-            const adjustedSpeed = initialSpeed + (obstacle.score / 5);
+                const adjustedSpeed = initialSpeed + (obstacle.score / 5);
     
-            if (currentTop >= window.innerHeight || stopDropping) {
-                obstacle.element.remove();
-                clearInterval(obstacle.interval);
-                if (obstacle.type === "good" && !stopDropping) {
-                    setTimeout(() => {
-                        const newObstacle = new Obstacle(obstacle.type, obstacle.speed, Math.floor(Math.random() * 3) - 1);
-                    }, 500);
+                if (currentTop >= window.innerHeight || stopDropping) {
+                    obstacle.element.remove();
+                    clearInterval(obstacle.interval);
+                    if (obstacle.type === "good" && !stopDropping) {
+                        levensOver = levensOver - 1;
+                        updateHarten();
+                        obstacle.remove();
+                    }
+                } else {
+                    obstacle.element.style.top = (currentTop + adjustedSpeed) + 'px';
+                    obstacle.checkCollision();
                 }
-            } else {
-                obstacle.element.style.top = (currentTop + adjustedSpeed) + 'px';
-                obstacle.checkCollision();
+    
             }
         }, 1000 / 60); 
     }
+    
   }
 
 
@@ -139,39 +186,55 @@ function updateHighScore() {
     if (score > currentHighScore) {
         highScoreElement.textContent = score;
         newHighScore.style.display = 'block';
+        localStorage.setItem('highscore', score);  // high score opslaan in browser.
         startConfetti();
+    }
+}
+function loadHighScore() {
+    const savedHighScore = localStorage.getItem('highscore');
+    if (savedHighScore !== null) {
+        highScore = parseInt(savedHighScore);
+        const highScoreElement = document.getElementById('highscore');
+        highScoreElement.textContent = highScore;
     }
 }
 
 
 
-  function resetGame() {
-      stopDropping = true;
-      score = 0;
-      updateScore();
-      gameOverDisplay.style.display = 'none';
-      removeAllObstacles();
-      playerPosition = 0;
-      player.style.left = calcPlayerPosition(playerPosition) + 'px';
-      newHighScore.style.display = 'none';
-  }
+    function resetGame() {
+        stopDropping = true;
+        score = 0;
+        droppingSpeed = 1250; // Reset dropping speed
+        levensOver = 3;
+        updateHarten();
+        updateScore();
+        gameOverDisplay.style.display = 'none';
+        removeAllObstacles();
+        playerPosition = 0;
+        player.style.left = calcPlayerPosition(playerPosition) + 'px';
+        newHighScore.style.display = 'none';
+    }
 
-  function startDroppingObstacles() {
-    new Obstacle("good", 1.2,score);
-      new Obstacle("good", 1,score);
+    
+    function getRandomObstacleType() {
+        return Math.random() < 0.5 ? "good" : "bad";
+      }
+    function startDroppingObstacles() {
+    // eerste p
+    new Obstacle(getRandomObstacleType(), Math.floor(Math.random() * 5) + 3, score);
 
-      new Obstacle("bad", 1.6,score);
-      new Obstacle("bad", 1.8,score);
+    const obstacleGenerationInterval = setInterval(() => {
+      if (!stopDropping) {
+          
+          new Obstacle(getRandomObstacleType(), Math.floor(Math.random() * 5) + 3, score);
+      } else {
+          clearInterval(obstacleGenerationInterval);
+      }
+  }, droppingSpeed);
 
-      const obstacleGenerationInterval = setInterval(() => {
-          if (!stopDropping) {
-              new Obstacle("good", 1.2,score);
-              new Obstacle("bad", 1.6,score);
-          } else {
-              clearInterval(obstacleGenerationInterval);
-          }
-      }, 2000);
-}
+    }
+
+      
 
   function movePlayer(direction) {
       if (direction === 'left' && playerPosition !== -1) {
@@ -223,6 +286,7 @@ function updateHighScore() {
 
   // Event listener for player movements and game start
   document.addEventListener('keydown', function(event) {
+    loadHighScore();
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         if (stopDropping) {
             resetGame();

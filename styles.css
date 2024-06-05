@@ -11,6 +11,20 @@
 
 }
 
+
+.levens {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  list-style-type: none;
+  display: flex;
+  margin-top: 3rem;
+}
+
+.levens li {
+  margin-left: 1rem;
+}
+
 html {
   scroll-behavior: smooth;
   line-height: 1.6;
