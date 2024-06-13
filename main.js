@@ -139,8 +139,8 @@
     move() {
         const obstacle = this;
         const initialSpeed = this.speed;
-        this.interval = setInterval(() => { // Change to arrow function
-            if (this.dead === false) { // Use 'this' to refer to the Obstacle instance
+        this.interval = setInterval(() => { 
+            if (this.dead === false) { 
                 const currentTop = parseInt(obstacle.element.style.top);
     
                 const adjustedSpeed = initialSpeed + (obstacle.score / 5);
@@ -204,7 +204,7 @@ function loadHighScore() {
     function resetGame() {
         stopDropping = true;
         score = 0;
-        droppingSpeed = 1250; // Reset dropping speed
+        droppingSpeed = 1250; 
         levensOver = 3;
         updateHarten();
         updateScore();
@@ -220,7 +220,6 @@ function loadHighScore() {
         return Math.random() < 0.5 ? "good" : "bad";
       }
     function startDroppingObstacles() {
-    // eerste p
     new Obstacle(getRandomObstacleType(), Math.floor(Math.random() * 5) + 3, score);
 
     const obstacleGenerationInterval = setInterval(() => {
@@ -284,7 +283,6 @@ function loadHighScore() {
 }
 
 
-  // Event listener for player movements and game start
   document.addEventListener('keydown', function(event) {
     loadHighScore();
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
